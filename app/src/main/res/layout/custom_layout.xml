@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_bg">
+
+    <com.denny.dream.widget.CustomProgressBar
+        android:id="@+id/custom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        app:firstColor="@color/colorPrimary"
+        app:secondColor="@color/colorAccent"
+        app:circleWidth="30dp"
+        app:speed="20"/>
+
+</RelativeLayout>
