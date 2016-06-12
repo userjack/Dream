@@ -20,4 +20,9 @@
         <attr name="circleWidth" />
         <attr name="speed" />
     </declare-styleable>
+
+    <declare-styleable name="CustomView">
+        <attr name="titleText"></attr>
+        <attr name="titleTextSize"></attr>
+    </declare-styleable>
 </resources>

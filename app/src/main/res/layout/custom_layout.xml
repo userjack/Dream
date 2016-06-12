@@ -43,11 +43,10 @@
             android:textSize="18sp" />
     </com.denny.dream.widget.CustomContainer>
 
-    <com.denny.dream.widget.CustomTitleView
+    <com.denny.dream.widget.CustomView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titleCircleTextColor="@color/colorPrimaryDark"
         app:titleText="@string/bottom_sheet_behavior"
-        app:titleTextSize="10sp" />
+        app:titleTextSize="20sp" />
 
 </RelativeLayout>
