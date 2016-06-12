@@ -5,15 +5,42 @@
     android:layout_height="match_parent"
     android:background="@color/white_bg">
 
-    <com.denny.dream.widget.CustomProgressBar
-        android:id="@+id/custom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:padding="10dp"
-        app:firstColor="@color/colorPrimary"
-        app:secondColor="@color/colorAccent"
-        app:circleWidth="30dp"
-        app:speed="20"/>
+    <com.denny.dream.widget.CustomContainer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#e1a5a5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#ff0067"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="#1db973"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#b2c40d"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="3"
+            android:textColor="#1974c4"
+            android:textSize="18sp" />
+    </com.denny.dream.widget.CustomContainer>
 
 </RelativeLayout>
