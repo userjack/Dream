@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 
 public class CustomTitleView extends View
 {
+    private static final String TAG = "CustomTitleView";
     /**
      * 文本
      */
@@ -65,6 +67,10 @@ public class CustomTitleView extends View
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++)
         {
+            String attrName = attrs.getAttributeName(i);
+            String attrVal = attrs.getAttributeValue(i);
+            Log.i(TAG, "attrName==" + attrName + "attrVal===" + attrVal );
+
             int attr = a.getIndex(i);
             switch (attr)
             {
@@ -84,6 +90,7 @@ public class CustomTitleView extends View
             }
 
         }
+
         a.recycle();
 
         /**
