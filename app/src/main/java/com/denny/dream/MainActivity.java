@@ -14,6 +14,8 @@ import android.widget.ListView;
 
 import com.denny.dream.adapter.RecommandAdapater;
 import com.denny.dream.bean.TitleModal;
+import com.denny.dream.custom.CustomActivity;
+import com.denny.dream.custom.QQlistActivity;
 import com.denny.dream.data.DataInterface;
 import com.denny.dream.data.Utils;
 import com.denny.dream.data.WebURL;
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        String[] str = new String[]{"推荐", "栏目", "直播", "我的"};
+        String[] str = new String[]{"QQ删除", "栏目", "自定义View", "我的"};
         for (int i = 0; i < str.length; i++) {
             menu.add(str[i]);
         }
@@ -111,11 +113,12 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         String title = item.getTitle().toString();
-        if (title.equals("推荐")) {
+        if (title.equals("QQ删除")) {
+            startActivity(new Intent(this, QQlistActivity.class));
 
         } else if (title.equals("栏目")) {
 
-        } else if (title.equals("直播")) {
+        } else if (title.equals("自定义View")) {
             startActivity(new Intent(this,CustomActivity.class));
         } else if (title.equals("我的")) {
 

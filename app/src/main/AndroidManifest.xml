@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CustomActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".custom.CustomActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".custom.QQlistActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
