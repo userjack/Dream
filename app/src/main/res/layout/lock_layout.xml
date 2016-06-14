@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.denny.dream.widget.lock.GestureLockViewGroup
+        android:id="@+id/lock_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        app:count="3"
+        app:tryTimes="4"
+        app:color_finger_on="@color/colorAccent"
+        app:color_finger_up="@color/colorPrimary"
+        app:color_no_finger_inner_circle="@color/colorPrimaryDark"
+        app:color_no_finger_outer_circle="@color/font_black_6"/>
+
+</LinearLayout>

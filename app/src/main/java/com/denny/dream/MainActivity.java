@@ -21,6 +21,7 @@ import com.denny.dream.data.Utils;
 import com.denny.dream.data.WebURL;
 import com.denny.dream.widget.header.HeaderADView;
 import com.denny.dream.widget.header.HeaderTitleView;
+import com.denny.dream.widget.lock.GestureLockViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        String[] str = new String[]{"QQ删除", "栏目", "自定义View", "我的"};
+        String[] str = new String[]{"QQ删除", "手势", "自定义View", "我的"};
         for (int i = 0; i < str.length; i++) {
             menu.add(str[i]);
         }
@@ -116,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
         if (title.equals("QQ删除")) {
             startActivity(new Intent(this, QQlistActivity.class));
 
-        } else if (title.equals("栏目")) {
-
+        } else if (title.equals("手势")) {
+            startActivity(new Intent(this, GestureLockViewActivity.class));
         } else if (title.equals("自定义View")) {
             startActivity(new Intent(this,CustomActivity.class));
         } else if (title.equals("我的")) {
