@@ -110,9 +110,9 @@ public class GestureLockViewGroup extends RelativeLayout {
         if (gestureLockViews == null) {
             gestureLockViews = new GestureLockView[count * count];
             mGestureLockViewWidth = (int) (4 * mWidth * 1.0f / 5 * count + 1);
-            mMarginBetweenLockView = (int) (mGestureLockViewWidth * 0.025);
+            mMarginBetweenLockView = (int) (mGestureLockViewWidth * 0.035);
 
-            mPaint.setStrokeWidth(mGestureLockViewWidth * 0.25f);
+            mPaint.setStrokeWidth(mGestureLockViewWidth * 0.025f);
 
             for (int i = 0; i < gestureLockViews.length; i++) {
                 gestureLockViews[i] = new GestureLockView(getContext(), colorNofingerOn, colorNofingerup, colorFingerOn, colorFingerUp);
