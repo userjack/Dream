@@ -20,6 +20,7 @@ import android.widget.ImageView;
 public class ScaleImageView extends ImageView implements ScaleGestureDetector.OnScaleGestureListener, View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
     private static final String TAG = ScaleImageView.class.getName();
     public static final float SCALE_MAX = 4.0f;
+    public static final float SCALE_MID = 2.0f;
     private float initScale = 0.5f;
     private float[] matrixValues = new float[9];
     private boolean once = true;
@@ -33,8 +34,9 @@ public class ScaleImageView extends ImageView implements ScaleGestureDetector.On
     private float lastX;
     private float lastY;
     private int mTouchSlop;
-    private boolean isCheckLeftAndRight;
-    private boolean isCheckTopAndBottom;
+    private boolean isCheckLeftAndRight = true;
+    private boolean isCheckTopAndBottom = true;
+    private boolean isAtuoScale;
 
     public ScaleImageView(Context context) {
         super(context, null);
@@ -46,13 +48,66 @@ public class ScaleImageView extends ImageView implements ScaleGestureDetector.On
         super.setScaleType(ScaleType.MATRIX);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         scaleGestureDetector = new ScaleGestureDetector(context, this);
-        gestureDetector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                return super.onDoubleTap(e);
+                if (isAtuoScale) {
+                    return true;
+                }
+                float x = e.getX();
+                float y = e.getY();
+                Log.i(TAG, getScale() + "initScale===" + initScale);
+                if (getScale() < SCALE_MID) {
+                    ScaleImageView.this.postDelayed(new AutoScaleRunnable(SCALE_MID, x, y), 16);
+                } else if (getScale() >= SCALE_MID && getScale() < SCALE_MAX) {
+                    ScaleImageView.this.postDelayed(new AutoScaleRunnable(SCALE_MAX, x, y), 16);
+                } else {
+                    ScaleImageView.this.postDelayed(new AutoScaleRunnable(initScale, x, y), 16);
+                }
+                return true;
             }
         });
         this.setOnTouchListener(this);
+    }
+
+    private class AutoScaleRunnable implements Runnable {
+        private static final float BIGGER = 1.07f;
+        private static final float SMALLER = 0.93f;
+        private float targetScale;
+        private float tmpScale;
+        private float x;
+        private float y;
+
+        public AutoScaleRunnable(float targetScale, float x, float y) {
+            this.targetScale = targetScale;
+            this.x = x;
+            this.y = y;
+            if (getScale() < this.targetScale) {
+                tmpScale = BIGGER;
+            } else {
+                tmpScale = SMALLER;
+            }
+        }
+
+        @Override
+        public void run() {
+            matrix.postScale(tmpScale, tmpScale, x, y);
+            checkBounderAndCenterWhenScale();
+            setImageMatrix(matrix);
+
+            final float currentScale = getScale();
+            //值在有效范围，继续缩放
+            if ((tmpScale > 1.0f && currentScale < targetScale) || (tmpScale < 1.0f && targetScale < currentScale)) {
+                ScaleImageView.this.postDelayed(this, 16);
+            } else {
+                final float scaleTarget = targetScale / currentScale;
+                matrix.postScale(scaleTarget, scaleTarget, x, y);
+                checkBounderAndCenterWhenScale();
+                setImageMatrix(matrix);
+                isAtuoScale = false;
+            }
+
+        }
     }
 
     @Override
@@ -171,18 +226,18 @@ public class ScaleImageView extends ImageView implements ScaleGestureDetector.On
             case MotionEvent.ACTION_MOVE:
                 float dx = x - lastX;
                 float dy = y - lastY;
-                if (!isCanDrag){
-                    isCanDrag = isCanDrag(dx,dy);
+                if (!isCanDrag) {
+                    isCanDrag = isCanDrag(dx, dy);
                 }
-                if (isCanDrag){
+                if (isCanDrag) {
                     RectF rectF = getMatrixRectF();
-                    if (getDrawable() != null){
+                    if (getDrawable() != null) {
                         isCheckLeftAndRight = isCheckTopAndBottom = true;
-                        if (rectF.width() < getWidth()){
+                        if (rectF.width() < getWidth()) {
                             dx = 0;
                             isCheckLeftAndRight = false;
                         }
-                        if (rectF.height() < getHeight()){
+                        if (rectF.height() < getHeight()) {
                             dy = 0;
                             isCheckTopAndBottom = false;
                         }
@@ -208,27 +263,22 @@ public class ScaleImageView extends ImageView implements ScaleGestureDetector.On
         final float viewWidth = getWidth();
         final float viewHeight = getHeight();
         // 判断移动或缩放后，图片显示是否超出屏幕边界
-        if (rect.top > 0 && isCheckTopAndBottom)
-        {
+        if (rect.top > 0 && isCheckTopAndBottom) {
             deltaY = -rect.top;
         }
-        if (rect.bottom < viewHeight && isCheckTopAndBottom)
-        {
+        if (rect.bottom < viewHeight && isCheckTopAndBottom) {
             deltaY = viewHeight - rect.bottom;
         }
-        if (rect.left > 0 && isCheckLeftAndRight)
-        {
+        if (rect.left > 0 && isCheckLeftAndRight) {
             deltaX = -rect.left;
         }
-        if (rect.right < viewWidth && isCheckLeftAndRight)
-        {
+        if (rect.right < viewWidth && isCheckLeftAndRight) {
             deltaX = viewWidth - rect.right;
         }
         matrix.postTranslate(deltaX, deltaY);
     }
 
-    private boolean isCanDrag(float dx, float dy)
-    {
+    private boolean isCanDrag(float dx, float dy) {
         return Math.sqrt((dx * dx) + (dy * dy)) >= mTouchSlop;
     }
 
